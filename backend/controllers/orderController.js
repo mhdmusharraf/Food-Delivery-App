@@ -4,6 +4,7 @@ import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+
 // placing user order for frontend
 const placeOrder = async (req, res) => {
   const frontend_url = "http://localhost:5173";
@@ -20,7 +21,7 @@ const placeOrder = async (req, res) => {
     await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} }); // to clear the cart data
 
     // for the stripe payment
-    const line_items = req.body.items.map(() => ({
+    const line_items = req.body.items.map((item) => ({
       price_data: {
         currency: "lkr",
         product_data: {
